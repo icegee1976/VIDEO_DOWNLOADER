@@ -1,0 +1,71 @@
+{
+    "name":  "lumagrab",
+    "version":  "0.3.2",
+    "private":  true,
+    "description":  "A polished desktop video downloader powered by Electron, Vite, yt-dlp, and ffmpeg.",
+    "main":  "electron/main.js",
+    "type":  "module",
+    "scripts":  {
+                    "dev":  "concurrently -k \"vite\" \"wait-on tcp:5173 \u0026\u0026 electron .\"",
+                    "build:web":  "vite build",
+                    "dist":  "npm run build:web \u0026\u0026 electron-builder --win nsis",
+                    "pack":  "npm run build:web \u0026\u0026 electron-builder --dir"
+                },
+    "devDependencies":  {
+                            "concurrently":  "^9.1.2",
+                            "electron":  "^36.1.0",
+                            "electron-builder":  "^26.0.12",
+                            "vite":  "^7.0.0",
+                            "wait-on":  "^8.0.3"
+                        },
+    "build":  {
+                  "appId":  "com.lumagrab.desktop",
+                  "productName":  "LumaGrab",
+                  "directories":  {
+                                      "output":  "release"
+                                  },
+                  "files":  [
+                                "dist/**/*",
+                                "electron/**/*",
+                                "assets/**/*",
+                                "package.json"
+                            ],
+                  "extraResources":  [
+                                         {
+                                             "from":  "bin",
+                                             "to":  "bin",
+                                             "filter":  [
+                                                            "**/*"
+                                                        ]
+                                         },
+                                         {
+                                             "from":  "assets",
+                                             "to":  "assets",
+                                             "filter":  [
+                                                            "**/*"
+                                                        ]
+                                         }
+                                     ],
+                  "win":  {
+                              "icon":  "assets/icon.ico",
+                              "target":  [
+                                             {
+                                                 "target":  "nsis",
+                                                 "arch":  [
+                                                              "x64"
+                                                          ]
+                                             }
+                                         ],
+                              "signAndEditExecutable":  false
+                          },
+                  "nsis":  {
+                               "oneClick":  false,
+                               "allowToChangeInstallationDirectory":  true,
+                               "createDesktopShortcut":  true,
+                               "shortcutName":  "LumaGrab",
+                               "installerIcon":  "assets/icon.ico",
+                               "uninstallerIcon":  "assets/icon.ico",
+                               "installerHeaderIcon":  "assets/icon.ico"
+                           }
+              }
+}

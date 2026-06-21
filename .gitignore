@@ -1,0 +1,12 @@
+node_modules/
+dist/
+release/
+.tools/
+HANDOFF_*.md
+
+*.log
+.env
+.env.*
+
+.DS_Store
+Thumbs.db
